@@ -1,0 +1,28 @@
+version: '3.6'
+
+services:
+  api:
+    container_name: backend
+    command: npm start
+    build: ./
+    working_dir: /usr/src/whatToBuy
+    environment:
+      DATABASE_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: stormlight
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: supersecret
+    links:
+      - db
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./:/usr/src/whatToBuy
+
+  db:
+    build: ./db
+    environment:
+      MYSQL_DATABASE: stormlight
+      MYSQL_ROOT_PASSWORD: supersecret
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: supersecret
